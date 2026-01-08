@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3萬元職涯挑戰賽 | 朴子就業中心</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --bg-color: #f4f7f6;
+        }
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background-color: var(--bg-color); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .card { background: white; width: 90%; max-width: 450px; padding: 40px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; }
+        .progress-container { background: #eee; height: 10px; border-radius: 5px; margin-bottom: 30px; overflow: hidden; }
+        .progress-bar { background: var(--primary-color); height: 100%; width: 0%; transition: width 0.3s ease; }
+        h1 { font-size: 24px; color: #333; margin-bottom: 10px; }
+        .score-tag { font-size: 14px; color: var(--primary-color); font-weight: bold; margin-bottom: 20px; display: block; }
+        #question { font-size: 20px; color: #444; min-height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; line-height: 1.5; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        .btn { flex: 1; padding: 15px; font-size: 18px; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.1s, opacity 0.2s; font-weight: bold; }
+        .btn:active { transform: scale(0.95); }
+        .btn-o { background-color: var(--success-color); color: white; }
+        .btn-x { background-color: var(--error-color); color: white; }
+        .footer-info { margin-top: 30px; font-size: 12px; color: #888; border-top: 1px solid #eee; pt: 15px; }
+        /* 彈窗樣式 */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 100; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; max-width: 80%; text-align: center; }
+        .btn-map { background: #333; color: white; margin-top: 15px; text-decoration: none; display: inline-block; padding: 10px 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+        <span class="score-tag">目前累積獎金：$<span id="scoreText">0</span></span>
+        <h1 id="title">Q1</h1>
+        <div id="question">正在載入挑戰...</div>
+        
+        <div class="btn-group" id="btnGroup">
+            <button class="btn btn-o" onclick="handleSelect(true)">O 是的</button>
+            <button class="btn btn-x" onclick="handleSelect(false)">X 不是</button>
+        </div>
+
+        <div class="footer-info">
+            📍 朴子就業中心 陪伴青年職得好評
+        </div>
+    </div>
+
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalMsg">喔喔！卡關了！</h2>
+            <p>這題的正確答案隱藏在朴子中心裡...</p>
+            <p><strong>📞 電話：(05) 362-1632</strong></p>
+            <a href="https://maps.app.goo.gl/YourMapLink" target="_blank" class="btn-map">地圖導航到中心</a>
+            <br><br>
+            <button onclick="closeModal()" style="border:none; background:none; color:var(--primary-color); cursor:pointer;">重新挑戰</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "我今年 28 歲，符合這項計畫的年齡條件嗎？", a: true },
+            { q: "只要失業滿一週，就可以直接領 3 萬元？", a: false },
+            { q: "計畫包含 3 次以上的深度職涯諮詢？", a: true },
+            { q: "還在大學讀書的「在學青年」也可以申請嗎？", a: false },
+            { q: "領錢條件之一是在 90 天內成功就業？", a: true },
+            { q: "只要錄取，上班第一天就可以領 3 萬？", a: false },
+            { q: "失業期間若有低額勞保，仍可能符合資格？", a: true },
+            { q: "這是每個人每年都可以領一次的獎勵金？", a: false },
+            { q: "專業人員會幫你製作專屬的「工作卡」？", a: true },
+            { q: "嘉義青年的最佳後援是「朴子就業中心」？", a: true }
+        ];
+
+        let idx = 0;
+        let score = 0;
+
+        function updateUI() {
+            if (idx < questions.length) {
+                document.getElementById('title').innerText = `第 ${idx + 1} 題`;
+                document.getElementById('question').innerText = questions[idx].q;
+                document.getElementById('progressBar').style.width = `${(idx / questions.length) * 100}%`;
+                document.getElementById('scoreText').innerText = score.toLocaleString();
+            } else {
+                document.getElementById('progressBar').style.width = `100%`;
+                document.getElementById('question').innerText = "🎊 挑戰成功！你完全符合領取 3 萬元的潛力！";
+                document.getElementById('btnGroup').innerHTML = '<button class="btn btn-o" onclick="location.reload()">再玩一次</button>';
+                alert("太棒了！快截圖滿分畫面，去朴子就業中心找顧問吧！");
+            }
+        }
+
+        function handleSelect(userAns) {
+            if (userAns === questions[idx].a) {
+                score += 3000;
+                idx++;
+                updateUI();
+            } else {
+                document.getElementById('errorModal').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            location.reload();
+        }
+
+        updateUI();
+    </script>
+</body>
+</html>
