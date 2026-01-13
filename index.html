@@ -18,7 +18,7 @@
             align-items: center; 
             justify-content: center; 
             min-height: 100vh;
-            /* 背景圖設定：青年跳躍視覺 */
+            /* 背景圖：青年跳躍視覺 */
             background: linear-gradient(rgba(0, 123, 255, 0.3), rgba(0, 123, 255, 0.3)), 
                         url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
@@ -47,7 +47,6 @@
         .btn-x { background-color: var(--error-color); color: white; }
         .footer-info { margin-top: 30px; font-size: 13px; color: #666; border-top: 1px solid #ccc; padding-top: 20px; }
         
-        /* 彈窗樣式 */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 100; padding: 20px; }
         .modal-content { background: white; padding: 35px; border-radius: 25px; max-width: 400px; width: 100%; text-align: center; }
         .btn-map { background: #333; color: white; margin-top: 20px; text-decoration: none; display: block; padding: 15px; border-radius: 12px; font-weight: bold; }
@@ -76,11 +75,11 @@
         <div class="modal-content">
             <h2 style="color:var(--error-color);">喔喔！卡關了！</h2>
             <p>別擔心，正確答案就在朴子就業中心裡！</p>
-            <p style="background: #f8f9fa; padding: 10px; border-radius: 10px;">
+            <p style="background: #f8f9fa; padding: 15px; border-radius: 10px; line-height: 1.6;">
                 <strong>📞 諮詢專線：(05) 362-1632</strong><br>
-                地址：嘉義縣朴子市嘉朴路西段7號
+                地址：嘉義縣朴子市嘉朴路西段 87 號
             </p>
-            <a href="https://maps.app.goo.gl/r8UamSpcjJQ349p17" target="_blank" class="btn-map">📍 地圖導航到中心</a>
+            <a href="https://maps.app.goo.gl/YourMapLink`，這可能無法正確開啟。建議將程式碼中的這一行：0" target="_blank" class="btn-map">📍 開啟地圖導航</a>
             <button class="btn-retry" onclick="closeModal()">再挑戰一次</button>
         </div>
     </div>
@@ -89,7 +88,7 @@
         const questions = [
             { q: "我今年 28 歲，符合這項計畫的年齡條件嗎？", a: true },
             { q: "失業滿 7 天，就可以直接領 3 萬元？", a: false },
-            { q: "計畫包含 3 次以上的「深度職涯諮詢」？", a: true },
+            { q: "計畫包含 3 次以上的「深度就業諮詢」？", a: true },
             { q: "還在讀研究所的「在學青年」也可以申請嗎？", a: false },
             { q: "領錢條件之一是在諮詢後 90 天內成功就業？", a: true },
             { q: "找到工作上班的第一天，就可以現領 3 萬？", a: false },
@@ -135,3 +134,5 @@
     </script>
 </body>
 </html>
+
+
